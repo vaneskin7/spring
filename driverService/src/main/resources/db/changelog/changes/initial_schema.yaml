@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: ivan
+      changes:
+        - createTable:
+            tableName: drivers
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: phone_number
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP
+
+  - changeSet:
+      id: 2
+      author: ivan
+      changes:
+        - createTable:
+            tableName: cars
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: brand
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: color
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: plate_number
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP
+              - column:
+                  name: driver_id
+                  type: BIGINT
+
+  - changeSet:
+      id: 3
+      author: ivan
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: cars
+            baseColumnNames: driver_id
+            constraintName: fk_cars_on_driver
+            referencedTableName: drivers
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
